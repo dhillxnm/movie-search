@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search {
+    width: 40rem;
+    height: 6rem;
+    border: 1px solid #000;
+    border-radius: 8px;
+    padding-left: 43px;
+    font-size: 28px;
+}
+
+.input {
+    position: relative;
+}
+
+
+.icon {
+    position: absolute;
+    top: 18px;
+    left: 11px;
+    font-size: 26px;
+    color: rgb(0 0 0/0.6);
+}
+
+
