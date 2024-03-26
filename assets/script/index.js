@@ -39,7 +39,7 @@ function displayMovieList(matches) {
         resultList.appendChild(ul);
         resultList.value = '';
     } else {
-        resultList.innerHTML = '<li>Movie not found</li>';
+        resultList.innerHTML = '<li class="not-found">Movie not found</li>';
     }
 }
 
@@ -52,7 +52,7 @@ button.addEventListener('click', () => {
         const movieHTML = generateMovieHTML(movie);
         movieShow.innerHTML = movieHTML;
     } else {
-        movieShow.innerHTML = ''; // Clear movieShow if no movie found
+        movieShow.innerHTML = ''; 
     }
     
 });
