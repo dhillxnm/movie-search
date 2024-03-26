@@ -5,6 +5,7 @@ const resultList = document.querySelector('.result-list');
 const button = document.querySelector('.button');
 const movieShow = document.querySelector('.movie-show');
 
+
 function validateInput(searchTerm) {
     return searchTerm.length >= 3;
 }
@@ -29,8 +30,8 @@ function displayMovieList(matches) {
             li.textContent = movie.title;
             li.addEventListener('click', function() {
                 input.value = movie.title;
-                listMovies(movie.title); // When clicked, display the clicked movie
-                resultList.innerHTML = ''; // Clear the resultList
+                listMovies(movie.title); 
+                resultList.innerHTML = ''; 
             });
             ul.appendChild(li);
         });
@@ -80,6 +81,7 @@ function generateMovieHTML(movie) {
     `;
 }
 
+
 function handleInput() {
     const searchTerm = input.value.toLowerCase();
     if (validateInput(searchTerm)) {
@@ -88,8 +90,6 @@ function handleInput() {
         resultList.innerHTML = '';
     }
 }
-
-
 
 
 button.addEventListener('click', () => {
