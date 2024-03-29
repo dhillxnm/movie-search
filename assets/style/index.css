@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+
 body {
     height: 100vh;
 }
@@ -18,7 +19,7 @@ main {
 
 .landing-page{
     position: relative;
-    background: #000;
+    background: #030303;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -26,23 +27,31 @@ main {
 }
 
 
+/*---------------------------------------- */
+/*-----------------Title------------------ */
+/*---------------------------------------- */
+
 .heading {
+    margin-top: 3%;
     color: #fff;
     text-align: center;
     text-transform: uppercase;
-    font-size: 95px;
+    font-size: 53px;
     width: 100%;
 }
 
 
 .short-heading {
-    color: #fff;
-    margin-top: -29px;
-    margin-bottom: 32px;
     font-size: 21px;
-    color: rgb(255 255 255 / 0.4)
+    margin-bottom: 3%;
+    font-weight: 600;
+    color: rgb(255 255 255 / 0.4);
 }
 
+
+/*---------------------------------------- */
+/*------------------Input----------------- */
+/*---------------------------------------- */
 
 form {
     position: relative;
@@ -52,13 +61,86 @@ form {
 }
 
 
-.input {    
-    width: 86%;
+.input {
+    width: 96%;
     height: 100%;
     border: 1px solid #000;
     border-radius: 8px;
-    padding-left:  12px;
-    font-size: 24px;
+    font-size: 22px;
+    padding: 0px 0px 4px 16px;
+    background-color: #171820;
+    color: #fff;
+}
+
+
+.button {
+    width: 27%;
+    height: 98%;
+    color: #fff;
+    border-radius: 8px;
+    background-color: #612cff;
+    position: absolute;
+    left: 525px;
+    top: 0px;
+    font-size: 19px;
+}
+
+
+.button:hover {
+    background-color: rgb(97 44 255/0.7);
+}
+
+
+
+/*---------------------------------------- */
+/*--------------result-list--------------- */
+/*---------------------------------------- */
+.result-list {
+    width: 96%;
+    height: auto;
+    color: #fff;
+    font-size: large;
+    list-style: none;
+    margin-top: 2%;
+}
+
+
+.result-list ul {
+    list-style: none;
+}
+
+
+.result-list li {
+    background-color: #19191f;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+
+.result-list li:hover:not(.not-found) {
+    background-color:  #612cff;
+}
+
+
+/*---------------------------------------- */
+/*--------------movie-fetch--------------- */
+/*---------------------------------------- */
+
+.movie {
+    display: flex;
+    border-radius: 5px;
+    height: 327px;
+}
+
+
+.movie-show {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 3%;
+    width: 89rem;
+    height: 357px;
+    color: #fff;
 }
 
 
@@ -70,77 +152,10 @@ form {
 }
 
 
-.button {
-    width: 24%;
-    height: 100%;
-    color: #fff;
-    border-radius: 8px;
-    background-color: #1e90ff;
-    position: absolute;
-    left: 470px;
-    top: 0px;
-    font-size: 25px;
-}
-
-
-.button:hover {
-    background-color: #0055a7;
-}
-
-
-.result-list {
-    width: 88%;
-    height: auto;
-    background-color: rgb(120 120 120 / 0.1);
-    color: #fff;
-    font-size: large;
-    list-style: none;
-}
-
-
-.result-list ul {
-    list-style: none;
-}
-
-
-.result-list li {
-    border: 1px solid rgb(255 255 255/0.4);
-    background-color: rgb(0 0 0/0.9);
-    border-radius: 18px;
-    padding: 10px;
-    border-radius: 2px;
-}
-
-.result-list li:hover:not(.not-found) {
-    background-color:  #0055a7;
-}
-
-
-.movie-show {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-top: 3%;
-    width: 87rem;
-    height: 368px;
-    color: #fff;
-    border: 1px solid rgb(0 0 0 / 0.2);
-}
-
-
-.movie {
-    display: flex;
-    border: 1px solid rgb(204 204 204/0.1);
-    padding: 10px;
-    border-radius: 5px;
-    height: 327px;
-}
-
-
 .movie-poster {
-    width: 257px; 
-    height: auto; 
-    margin-right: 20px;
+    width: 257px;
+    height: 327px;
+    margin-right: 2.5%;
     border-radius: 5px;
 }
 
@@ -151,23 +166,37 @@ form {
 
 
 .movie-title {
-    margin-top: 0;
-    font-size: 39px;
+    font-size: 36px;
     font-weight: 500;
+    margin-top: -12px;
 }
 
-.yearDuration {
-    display: flex; /* Added flexbox */
-    justify-content: flex-start;
-    align-items: center;
-    gap: 30px;
-    margin-top: 0;
-}
 
 .movie-year,
 .movie-duration {
     color: rgb(240 240 240/0.4);
     margin-top: 7px;
+}
+
+
+.yearDuration {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 0;
+    margin-left: -8px;
+}
+
+
+.yearDuration::after {
+    content: "|";
+    margin-left: -75px;
+    color: rgb(240 240 240 / 0.4);
+}
+
+
+.yearDuration .movie-duration {
+    margin-left: 10px; 
 }
 
 
@@ -177,11 +206,14 @@ form {
 }
 
 
-.movie-genre {
-    display: flex; /* Added flexbox */
-    justify-content: flex-start;
-    color: rgba(255, 255, 255, 0.55);
-    font-weight: 500;
+.movie-genre .genre {
+    background-color: #24252D;
+    border-radius: 17px;
+    padding: 6px 21px 9px;
+    border-radius: 23px;
 }
 
 
+.movie-genre .genre:not(:first-child) {
+    margin-left: 10px; 
+}

@@ -1,86 +1,27 @@
+'use strict';
+
+/*---------------------------------------- */
+/*-------------Imported files------------- */
+/*---------------------------------------- */
 import movies from './movies.js';
+import { select, listen, getElement, selectAll, create } from './utils.js';
 
-const input = document.querySelector('.input');
-const resultList = document.querySelector('.result-list');
-const button = document.querySelector('.button');
-const movieShow = document.querySelector('.movie-show');
+/*---------------------------------------- */
+/*-------------------DOM------------------ */
+/*---------------------------------------- */
 
+const input = select('.input');
+const resultList = select('.result-list');
+const button = select('.button');
+const movieShow = select('.movie-show');
+
+/*---------------------------------------- */
+/*--------------Listing Movies------------ */
+/*---------------------------------------- */
 
 function validateInput(searchTerm) {
     return searchTerm.length >= 3;
 }
-
-
-function searchMovies(searchTerm) {
-    return movies.filter(movie => {
-        const title = movie.title.toLowerCase();
-        return title.includes(searchTerm);
-    });
-}
-
-
-function displayMovieList(matches) {
-    resultList.innerHTML = '';
-    if (matches.length > 0) {
-        const limitedMatches = matches.slice(0, 5);
-        const ul = document.createElement('ul');
-
-        limitedMatches.forEach(movie => {
-            const li = document.createElement('li');
-            li.textContent = movie.title;
-            li.addEventListener('click', function() {
-                input.value = movie.title;
-                listMovies(movie.title); 
-                resultList.innerHTML = ''; 
-            });
-            ul.appendChild(li);
-        });
-
-        resultList.appendChild(ul);
-        resultList.value = '';
-    } else {
-        resultList.innerHTML = '<li class="not-found">Movie not found</li>';
-    }
-}
-
-
-button.addEventListener('click', () => {
-    const searchTerm = input.value.toLowerCase();
-    const matches = searchMovies(searchTerm);
-    if (matches.length > 0) {
-        const movie = matches[0];
-        const movieHTML = generateMovieHTML(movie);
-        movieShow.innerHTML = movieHTML;
-    } else {
-        movieShow.innerHTML = ''; 
-    }
-    
-});
-
-
-function listMovies(searchTerm) {
-    const matches = searchMovies(searchTerm.toLowerCase());
-    displayMovieList(matches);
-}
-
-
-function generateMovieHTML(movie) {
-    return `
-        <div class="movie">
-            <img src="${movie.poster}" alt="${movie.title}" class="movie-poster">
-            <div class="movie-details">
-                <h2 class="movie-title">${movie.title}</h2>
-                <div class="yearDuration">
-                    <p class="movie-year">${movie.year}</p>
-                    <p class="movie-duration">${movie.runningTime}</p>
-                </div>
-                <p class="movie-description">${movie.description}</p>
-                <p class="movie-genre">${movie.genre.join('   ')}</p>
-            </div>
-        </div>
-    `;
-}
-
 
 function handleInput() {
     const searchTerm = input.value.toLowerCase();
@@ -91,11 +32,88 @@ function handleInput() {
     }
 }
 
+function searchMovies(searchTerm) {
+    return movies.filter(movie => {
+        const title = movie.title.toLowerCase();
+        return title.includes(searchTerm);
+    });
+}
 
-button.addEventListener('click', () => {
+function displayMovieList(matches) {
+    resultList.innerHTML = '';
+    if (matches.length > 0) {
+        const limitedMatches = matches.slice(0, 5);
+        const ul = create('ul');
+        limitedMatches.forEach(movie => {
+            const li = create('li');
+            li.textContent = movie.title;
+            listen('click', li, function() {
+                input.value = movie.title;
+                listMovies(movie.title);
+                resultList.innerHTML = '';
+            });
+            ul.appendChild(li);
+        });
+        resultList.appendChild(ul);
+        resultList.value = '';
+    } else {
+        resultList.innerHTML = '<li class="not-found">Movie not found</li>';
+    }
+}
+
+function displayFirstMatch() {
+    const searchTerm = input.value.toLowerCase();
+    const matches = searchMovies(searchTerm);
+    if (matches.length > 0) {
+        const movie = matches[0];
+        const movieHTML = generateMovieHTML(movie);
+        movieShow.innerHTML = movieHTML;
+    } else {
+        movieShow.innerHTML = '';
+    }
+}
+
+function listMovies(searchTerm) {
+    const matches = searchMovies(searchTerm.toLowerCase());
+    displayMovieList(matches);
+}
+
+/*---------------------------------------- */
+/*----------------fetch movie------------- */
+/*---------------------------------------- */
+
+function generateMovieHTML(movieFound) {
+    let genres = '';
+    movieFound.genre.forEach(singleGenre => {
+        genres += `<span class="genre" style="background-color: #24252D;">${singleGenre}</span>`;
+    });
+    const yearDurationHTML = `
+        <div class="yearDuration">
+            <div class="green-dot"></div>
+            <p class="movie-year">${movieFound.year}</p>
+            <p class="movie-duration">${movieFound.runningTime}</p>
+        </div>
+    `;
+    return `
+        <div class="movie">
+            <img src="${movieFound.poster}" alt="${movieFound.title}" class="movie-poster">
+            <div class="movie-details">
+                <h2 class="movie-title">${movieFound.title}</h2>
+                ${yearDurationHTML}
+                <p class="movie-description">${movieFound.description}</p>
+                <div class="movie-genre">${genres}</div>
+            </div>
+        </div>
+    `;
+}
+
+/*---------------------------------------- */
+/*----------------Event lis.-------------- */
+/*---------------------------------------- */
+
+listen('input', input, handleInput);
+listen('click', button, displayFirstMatch);
+listen('click', button, () => {
     handleInput();
     resultList.innerHTML = '';
 });
-
-
-input.addEventListener('input', handleInput);
